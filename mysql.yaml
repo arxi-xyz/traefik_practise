@@ -1,0 +1,39 @@
+services:
+  traefik_mysql:
+    container_name: traefik_mysql
+    build:
+      context: ./.docker/mysql
+    hostname: ${MYSQL_HOST}
+    environment:
+      - APP_ENV=${MYSQL_APP_ENV}
+      - MYSQL_HOST=${MYSQL_HOST}
+      - MYSQL_DB=${MYSQL_DB}
+      - MYSQL_USER=${MYSQL_USER}
+      - MYSQL_PASSWORD=${MYSQL_PASSWORD}
+      - MYSQL_PORT=${MYSQL_PORT}
+      - MYSQL_ROOT_PASSWORD=${MYSQL_ROOT_PASSWORD}
+    volumes:
+      - ./.docker/mysql/data:/var/lib/mysql
+      - ./.docker/mysql/db:/docker-entrypoint-initdb.d/
+      - ./.docker/mysql/config/my.cnf:/etc/mysql/my.cnf
+    networks:
+      - traefik_database
+
+  traefik_adminer:
+    container_name: traefik_adminer
+    image: adminer
+    ports:
+      - 8081:8081
+    networks:
+      - traefik_database
+    links:
+      - traefik_mysql
+
+networks:
+  traefik_database:
+    name: traefik_database
+    driver: bridge
+
+volumes:
+  mysql:
+    name: traefik_mysql_data

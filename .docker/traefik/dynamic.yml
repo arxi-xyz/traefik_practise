@@ -1,0 +1,12 @@
+http:
+  routers:
+    laravel:
+      rule: 'Host(`localhost`)'
+      service: laravel
+      entryPoints:
+        - web
+  services:
+    laravel:
+      loadBalancer:
+        servers:
+          - url: 'http://laravel:9000' # Laravel container name and PHP-FPM port
