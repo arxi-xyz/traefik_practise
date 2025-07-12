@@ -19,16 +19,6 @@ services:
     networks:
       - traefik_database
 
-  traefik_adminer:
-    container_name: traefik_adminer
-    image: adminer
-    ports:
-      - 8081:8081
-    networks:
-      - traefik_database
-    links:
-      - traefik_mysql
-
 networks:
   traefik_database:
     name: traefik_database

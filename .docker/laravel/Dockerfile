@@ -35,7 +35,7 @@ RUN mkdir -p /var/www/storage /var/www/bootstrap/cache /var/www/public/upload \
     && chown -R www-data:www-data /var/www \
     && chmod -R 775 /var/www/storage /var/www/bootstrap/cache /var/www/public/upload
 
-COPY ./../.docker/laravel/entrypoint.sh /usr/local/bin/entrypoint
+COPY .docker/laravel/entrypoint.sh /usr/local/bin/entrypoint
 RUN chmod +x /usr/local/bin/entrypoint
 
 ENTRYPOINT ["entrypoint"]

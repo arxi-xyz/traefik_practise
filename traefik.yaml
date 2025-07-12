@@ -1,17 +1,18 @@
 services:
-  traefik_webserver:
-    container_name: traefik_webserver
+  traefik_gateway:
+    container_name: traefik_gateway
     image: traefik:v2.10
     ports:
       - '80:80'
       - '8080:8080'
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock:ro
+      - ./.docker/traefik/traefik.yml:/etc/traefik/traefik.yml
       - ./.docker/traefik/dynamic.yml:/etc/traefik/dynamic.yml
     networks:
-      - traefik_webserver
+      - traefik_gateway
 
 networks:
-  traefik_webserver:
-    name: traefik_webserver
+  traefik_gateway:
+    name: traefik_gateway
     driver: bridge

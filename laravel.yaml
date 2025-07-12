@@ -3,19 +3,18 @@ services:
     container_name: traefik_backend
     build:
       context: .
-      dockerfile: code/Dockerfile
+      dockerfile: .docker/laravel/Dockerfile
     volumes:
       - ./.docker/laravel/supervisor/supervisord.conf:/etc/supervisor/supervisord.conf
       - ./.docker/laravel/supervisor/queue-worker.conf:/etc/supervisor/conf.d/queue-worker.conf
       - ./.docker/laravel/supervisor/php-fpm.conf:/etc/supervisor/conf.d/php-fpm.conf
+      - ./.docker/laravel/php-fpm/www.conf:/usr/local/etc/php-fpm.d/www.conf
       - ./code:/var/www:delegated
     labels:
       - 'traefik.enable=true'
       - 'traefik.http.routers.laravel.rule=Host(`localhost`)'
       - 'traefik.http.routers.laravel.entrypoints=web'
       - 'traefik.http.services.laravel.loadbalancer.server.port=9000'
-      - 'traefik.http.routers.laravel.middlewares=file'
-      - 'traefik.http.middlewares.file.files.path=/var/www/public/index.php'
     networks:
       - traefik_webserver
       - traefik_database
@@ -26,5 +25,5 @@ networks:
     name: traefik_webserver
     external: true
   traefik_database:
-    name: traefik_database  
+    name: traefik_database
     external: true

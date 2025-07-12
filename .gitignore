@@ -2,3 +2,4 @@
 .vscode
 .idea
 .docker/mysql/data
+.docker/nginx/logs/*
