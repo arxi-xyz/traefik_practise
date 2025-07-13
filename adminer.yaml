@@ -11,9 +11,7 @@ services:
 networks:
   traefik_gateway:
     name: traefik_gateway
-    driver: bridge
     external: true
   traefik_database:
     name: traefik_database
-    driver: bridge
     external: true
