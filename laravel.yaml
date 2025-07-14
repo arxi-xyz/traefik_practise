@@ -23,7 +23,7 @@ services:
 networks:
   traefik_webserver:
     name: traefik_webserver
-    external: true
+    driver: bridge
   traefik_database:
     name: traefik_database
-    external: true
+    driver: bridge
