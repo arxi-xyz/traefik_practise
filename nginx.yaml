@@ -17,8 +17,13 @@ services:
     labels:
       - 'traefik.enable=true'
       - 'traefik.http.routers.traefik-webserver.rule=Host(`traefik.com`)'
-      - 'traefik.http.routers.traefik-webserver.entrypoints=web'
-      - 'traefik.http.services.traefik-webserver.loadbalancer.server.port=8001'
+      - 'traefik.http.routers.traefik-webserver.entrypoints=websecure'
+      - 'traefik.http.routers.traefik-webserver.tls=true'
+    healthcheck:
+      test: ['CMD', 'curl', '-f', 'http://localhost:8001/up']
+      interval: 10s
+      timeout: 5s
+      retries: 5
 networks:
   traefik_webserver:
     name: traefik_webserver
