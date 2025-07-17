@@ -30,3 +30,4 @@ networks:
   traefik_gateway:
     name: traefik_gateway
     driver: bridge
+    external: true
