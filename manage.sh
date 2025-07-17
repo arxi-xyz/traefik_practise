@@ -1,7 +1,7 @@
 #! /bin/bash
 set -e
 
-composes=( "mysql.yaml" "traefik.yaml" "laravel.yaml" "nginx.yaml" "adminer.yaml")
+composes=( "mysql.yaml" "traefik.yaml" "laravel.yaml" "nginx.yaml" "adminer.yaml" "vue.yaml")
 
 stop_containers(){
     for compose in ${composes[@]}; do

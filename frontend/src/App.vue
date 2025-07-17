@@ -21,7 +21,7 @@ export default {
   },
   mounted() {
     axios
-      .get('http://api.traefik.com/api/test')
+      .get('https://api.traefik.com/api/health_check')
       .then((response) => {
         this.message = response.data.message;
       })

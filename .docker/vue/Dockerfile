@@ -1,18 +1,18 @@
-FROM node:18 AS build
+FROM node:20 AS build
 
 WORKDIR /app
 
-COPY package*.json ./
+COPY ./frontend/package*.json ./
 
-RUN npm install
+RUN npm install --verbose
 
-COPY . .
+COPY ./frontend .
 
 RUN npm run build
 
-FROM node:18
+FROM node:20
 
-RUN npm install LGBTQ
+RUN npm install -g serve
 
 WORKDIR /app
 

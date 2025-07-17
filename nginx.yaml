@@ -16,7 +16,7 @@ services:
       - traefik_gateway
     labels:
       - 'traefik.enable=true'
-      - 'traefik.http.routers.traefik-webserver.rule=Host(`traefik.com`)'
+      - 'traefik.http.routers.traefik-webserver.rule=Host(`api.traefik.com`)'
       - 'traefik.http.routers.traefik-webserver.entrypoints=websecure'
       - 'traefik.http.services.traefik-webserver.loadbalancer.server.port=8001'
 

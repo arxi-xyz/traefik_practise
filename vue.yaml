@@ -5,9 +5,28 @@ services:
       context: .
       dockerfile: .docker/vue/Dockerfile
     networks:
-      - traefik_webserver
+      - traefik_gateway
+    ports:
+      - 8083:8083
+    labels:
+      - 'traefik.enable=true'
+      - 'traefik.http.routers.traefik-frontend.rule=Host(`traefik.com`)'
+      - 'traefik.http.routers.traefik-frontend.entrypoints=websecure'
+      - 'traefik.http.services.traefik-frontend.loadbalancer.server.port=8083'
+    healthcheck:
+      test:
+        [
+          'CMD',
+          'node',
+          '-e',
+          "require('http').get('http://localhost:8083', (res) => { process.exit(res.statusCode >= 200 && res.statusCode < 300 ? 0 : 1); }).on('error', () => { process.exit(1); });",
+        ]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 10s
 
 networks:
-  traefik_webserver:
-    name: traefik_webserver
+  traefik_gateway:
+    name: traefik_gateway
     driver: bridge
