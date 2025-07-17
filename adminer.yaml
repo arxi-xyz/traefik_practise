@@ -7,13 +7,17 @@ services:
     labels:
       - 'traefik.enable=true'
       - 'traefik.http.routers.traefik-adminer.rule=Host(`adminer.traefik.com`)'
-      - 'traefik.http.routers.traefik-adminer.entrypoints=web'
-      - 'traefik.http.services.traefik-adminer.loadbalancer.server.port=8081'
+      - 'traefik.http.routers.traefik-adminer.entrypoints=websecure'
+      - 'traefik.http.services.traefik-adminer.loadbalancer.server.port=8080'
+
     healthcheck:
       test: ['CMD', 'sh', '-c', 'ps aux | grep "[p]hp -S \\[::\\]:8080"']
       interval: 10s
       timeout: 5s
       retries: 5
+    networks:
+      - 'traefik_gateway'
+      - 'traefik_database'
 
 networks:
   traefik_gateway:

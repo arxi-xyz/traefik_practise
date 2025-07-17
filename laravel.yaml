@@ -9,12 +9,7 @@ services:
       - ./.docker/laravel/supervisor/queue-worker.conf:/etc/supervisor/conf.d/queue-worker.conf
       - ./.docker/laravel/supervisor/php-fpm.conf:/etc/supervisor/conf.d/php-fpm.conf
       - ./.docker/laravel/php-fpm/www.conf:/usr/local/etc/php-fpm.d/www.conf
-      - ./code:/var/www:delegated
-    labels:
-      - 'traefik.enable=true'
-      - 'traefik.http.routers.laravel.rule=Host(`localhost`)'
-      - 'traefik.http.routers.laravel.entrypoints=web'
-      - 'traefik.http.services.laravel.loadbalancer.server.port=9000'
+      - ./backend:/var/www:delegated
     networks:
       - traefik_webserver
       - traefik_database

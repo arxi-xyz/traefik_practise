@@ -1,0 +1,13 @@
+services:
+  traefik_frontend:
+    container_name: traefik_frontend
+    build:
+      context: .
+      dockerfile: .docker/vue/Dockerfile
+    networks:
+      - traefik_webserver
+
+networks:
+  traefik_webserver:
+    name: traefik_webserver
+    driver: bridge
