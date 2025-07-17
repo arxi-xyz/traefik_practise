@@ -39,7 +39,7 @@ services:
       - 'traefik.http.routers.dashboard.entrypoints=websecure'
       - 'traefik.http.routers.dashboard.service=api@internal'
 
-      - 'traefik.http.middlewares.dashboard-auth.basicauth.users=admin:$$apr1$$xfWwdkfd$$2FQ5CSWuGYeCwzwr9H5Zt1'
+      - 'traefik.http.middlewares.dashboard-auth.basicauth.users=admin:$$apr1$$xfWwdkfd$$2FQ5CSWuGYeCwzwr9H5Zt1' # Password
       - 'traefik.http.routers.dashboard.middlewares=dashboard-auth@docker'
     healthcheck:
       test: ['CMD', 'traefik', 'healthcheck', '--ping']
